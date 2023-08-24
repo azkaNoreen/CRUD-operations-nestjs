@@ -4,9 +4,6 @@ import { BookService } from './book.service';
 // import { Book as BookModel  } from 'src/graphql';
 import { AddBookArgs } from './add.book.args';
 import { UpdateBookArgs } from './update.book.args';
-import { IsNull } from 'typeorm';
-import { type } from 'os';
-
 
 @Resolver(of => Book)
 export class BookResolver {
@@ -25,6 +22,11 @@ export class BookResolver {
     @Query(() =>  [Book])
     getAllBooks() {
         return this.bookService.getAll()
+    }
+
+    @Query(() =>  Book)
+    getOneBook(@Args('id') id: number) {
+        return this.bookService.getOne(id)
     }
 
     @Mutation(() =>String)

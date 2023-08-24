@@ -29,6 +29,7 @@ export interface Book {
 
 export interface IQuery {
     getAllBooks(): Book[] | Promise<Book[]>;
+    getOneBook(id: number): Book | Promise<Book>;
     printHello(): string | Promise<string>;
 }
 

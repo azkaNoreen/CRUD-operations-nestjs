@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Book } from './book.schema';
 import { Repository } from 'typeorm';
 import { BookEntity } from './book.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,16 +9,6 @@ import { UpdateBookArgs } from './update.book.args';
 @Injectable()
 export class BookService {
     constructor(@InjectRepository(BookEntity ) private bookRepo:Repository<BookEntity>){  }
-    // private readonly books: Book[] = [{
-    //     name: "Azka Noreen",
-    //     price:23,
-    //     author: 'changeme',
-    //   },
-    //   {
-    //     name: "Noreen",
-    //     price:25,
-    //     author: 'millak',
-    //   },];
 
     async createBook(addbookarges:AddBookArgs):Promise<string>{
         let book:BookEntity=new BookEntity();
@@ -34,6 +23,11 @@ export class BookService {
 
     async getAll():Promise<BookEntity[]>{
         let books=await this.bookRepo.find();
+        return books
+    }
+
+    async getOne(id:number):Promise<BookEntity>|undefined{
+        let books=await this.bookRepo.findOne({where:{id:id}})
         return books
     }
 
